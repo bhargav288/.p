@@ -1,9 +1,6 @@
-
-
 document.getElementById('surpriseBtn').addEventListener('click', () => {
     const balloonsContainer = document.getElementById('balloons');
     balloonsContainer.innerHTML = ''; // Clear previous balloons
-
     for (let i = 0; i < 20; i++) { // Increased the number of balloons
         const balloon = document.createElement('div');
         balloon.classList.add('balloon');
@@ -26,3 +23,4 @@ document.getElementById('surpriseBtn').addEventListener('click', () => {
         balloonsContainer.appendChild(balloon);
     }
 });
+
