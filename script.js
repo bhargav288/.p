@@ -1,26 +1,44 @@
-document.getElementById('surpriseBtn').addEventListener('click', () => {
-    const balloonsContainer = document.getElementById('balloons');
-    balloonsContainer.innerHTML = ''; // Clear previous balloons
-    for (let i = 0; i < 20; i++) { // Increased the number of balloons
-        const balloon = document.createElement('div');
-        balloon.classList.add('balloon');
+const balloonContainer = document.getElementById("balloon-container");
 
-        // Randoma size
-        const size = Math.random() * 50 + 20; // Size between 20px and 70px
-        balloon.style.width = `${size}px`;
-        balloon.style.height = `${size}px`;
+function random(num) {
+  return Math.floor(Math.random() * num);
+}
 
-        // Random position and animation duration
-        const leftPosition = Math.random() * 100; // Position from 0% to 100%
-        const animationDuration = Math.random() * 3 + 2; // Duration between 2s and 5s
+function getRandomStyles() {
+  var r = random(255);
+  var g = random(255);
+  var b = random(255);
+  var mt = random(200);
+  var ml = random(50);
+  var dur = random(5) + 5;
+  return `
+  background-color: rgba(${r},${g},${b},0.7);
+  color: rgba(${r},${g},${b},0.7); 
+  box-shadow: inset -7px -3px 10px rgba(${r - 10},${g - 10},${b - 10},0.7);
+  margin: ${mt}px 0 0 ${ml}px;
+  animation: float ${dur}s ease-in infinite  `;
+}
 
-        // Setting styles
-        balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-        balloon.style.left = `${leftPosition}%`;
-        balloon.style.animationDuration = `${animationDuration}s`;
+function createBalloons(num) {
+  for (var i = num; i > 0; i--) {
+    var balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.cssText = getRandomStyles();
+    balloonContainer.append(balloon);
+  }
+}
 
-        // Add balloon to the container
-        balloonsContainer.appendChild(balloon);
-    }
+function removeBalloons() {
+  balloonContainer.style.opacity = 0;
+  setTimeout(() => {
+    balloonContainer.remove()
+  }, 500)
+}
+
+window.addEventListener("load", () => {
+  createBalloons(30)
 });
 
+window.addEventListener("click", () => {
+  removeBalloons();
+});
